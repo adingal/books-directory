@@ -6,6 +6,7 @@ import './assets/css/app.css'
 import Books from './pages/Books'
 import Users from './pages/Users'
 import Login from './pages/Login'
+import AddUser from './pages/AddUser'
 
 // Components
 import Header from './components/Header'
@@ -19,6 +20,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/add-user" element={<AddUser />} />
             <Route path="/books" element={<Books />} />
             <Route path="/users" element={<Users />} />
           </Routes>
