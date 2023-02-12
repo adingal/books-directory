@@ -8,16 +8,19 @@ import Users from './pages/Users'
 
 // Components
 import Header from './components/Header'
+import Layout from './components/Layout'
 
 function App() {
   return (
     <>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/books" element={<Books />} />
-          <Route path="/users" element={<Users />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/books" element={<Books />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+        </Layout>
       </Router>
     </>
   )
