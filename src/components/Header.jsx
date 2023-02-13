@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  NavLink,
-} from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap'
 import { FaUser } from 'react-icons/fa'
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -24,27 +18,33 @@ function Header() {
         color="dark"
         dark
       >
-        <Link className="navbar-brand fw-bold text-uppercase" to="/">
+        <NavLink className="navbar-brand fw-bold text-uppercase" to="/">
           <h2 className="m-0">Books Directory</h2>
-        </Link>
+        </NavLink>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
             <NavItem>
-              <Link to="/books" className="nav-link text-uppercase px-md-3">
+              <NavLink to="/books" className="nav-link text-uppercase px-md-3">
                 Books
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/users" className="nav-link text-uppercase px-md-3">
-                Users
-              </Link>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/users">
-                <FaUser />
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink to="/users" className="nav-link text-uppercase px-md-3">
+                Users
+              </NavLink>
+            </NavItem>
+            {isLoggedIn && (
+              <NavItem>
+                <NavLink
+                  to="/profile/:id"
+                  className="d-flex flex-row align-items-center nav-link text-capitalize px-md-3"
+                >
+                  <FaUser />
+                  <p className="mb-0 ms-1">Username</p>
+                </NavLink>
+              </NavItem>
+            )}
           </Nav>
         </Collapse>
       </Navbar>
