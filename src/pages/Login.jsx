@@ -5,6 +5,7 @@ function Login() {
   return (
     <Row>
       <Col xs={12} md={8} lg={6} xl={4} className="mx-auto">
+        <h1>Login</h1>
         <Form>
           <FormGroup floating>
             <Input id="email" name="email" placeholder="Email" type="email" />

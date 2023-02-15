@@ -116,6 +116,7 @@ function AddUser() {
   return (
     <Row>
       <Col xs={12} md={8} lg={6} xl={5} className="mx-auto">
+        <h1>Add User</h1>
         <Form onSubmit={formik.handleSubmit}>
           <Row>
             <Col md={6}>
