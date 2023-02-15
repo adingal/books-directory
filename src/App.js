@@ -12,20 +12,25 @@ import AddUser from './pages/AddUser'
 import Header from './components/Header'
 import Layout from './components/Layout'
 
+// Context
+import { UserProvider } from './context/UserContext'
+
 function App() {
   return (
     <>
-      <Router>
-        <Header />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/add-user" element={<AddUser />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/users" element={<Users />} />
-          </Routes>
-        </Layout>
-      </Router>
+      <UserProvider>
+        <Router>
+          <Header />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/add-user" element={<AddUser />} />
+              <Route path="/books" element={<Books />} />
+              <Route path="/users" element={<Users />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </UserProvider>
     </>
   )
 }
