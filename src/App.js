@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import './assets/css/app.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 //Pages
 import Books from './pages/Books'
@@ -32,6 +34,7 @@ function App() {
           </Layout>
         </Router>
         <Loader />
+        <ToastContainer />
       </UserProvider>
     </>
   )

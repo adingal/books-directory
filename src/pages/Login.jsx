@@ -4,6 +4,7 @@ import { Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 
 // Context
 import UserContext from '../context/UserContext'
@@ -60,7 +61,8 @@ function Login() {
         navigate('/books')
       }
     } catch (error) {
-      console.log('Bad user credentials', error)
+      toast.error('Bad user credentials')
+    } finally {
       dispatch({ type: 'CLEAR_LOADING' })
     }
   }
