@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap'
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap'
 import { FaUser } from 'react-icons/fa'
+
+// Context
+import UserContext from '../context/UserContext'
+
+// Firebase
+import { getAuth } from 'firebase/auth'
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { user, dispatch } = useContext(UserContext)
 
   const toggle = () => setIsOpen(!isOpen)
+
+  const logOutUser = async () => {
+    const auth = getAuth()
+    dispatch({ type: 'SET_LOADING' })
+    auth.signOut()
+    dispatch({ type: 'LOGOUT' })
+  }
 
   return (
     <>
@@ -34,16 +57,16 @@ function Header() {
                 Users
               </NavLink>
             </NavItem>
-            {isLoggedIn && (
-              <NavItem>
-                <NavLink
-                  to="/profile/:id"
-                  className="d-flex flex-row align-items-center nav-link text-capitalize px-md-3"
-                >
+            {user && user.displayName && (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle className="d-flex align-items-center" nav>
                   <FaUser />
-                  <p className="mb-0 ms-1">Username</p>
-                </NavLink>
-              </NavItem>
+                  <p className="mb-0 ms-2">{user.displayName}</p>
+                </DropdownToggle>
+                <DropdownMenu end>
+                  <DropdownItem onClick={logOutUser}>Logout</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             )}
           </Nav>
         </Collapse>

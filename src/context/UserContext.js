@@ -13,6 +13,7 @@ const userReducer = (state, action) => {
     case 'LOGOUT':
       return {
         ...state,
+        user: null,
         isLoading: false,
       }
     case 'SET_LOADING':
