@@ -14,6 +14,7 @@ import Layout from './components/Layout'
 
 // Context
 import { UserProvider } from './context/UserContext'
+import Loader from './components/Loader'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             </Routes>
           </Layout>
         </Router>
+        <Loader />
       </UserProvider>
     </>
   )

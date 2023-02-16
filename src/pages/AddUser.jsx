@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components'
+
+// Context
+import UserContext from '../context/UserContext'
 
 // Firebase
 import {
@@ -25,6 +28,7 @@ const StyledErrorLabel = styled.span`
 
 function AddUser() {
   const navigate = useNavigate()
+  const { dispatch } = useContext(UserContext)
   const userTypes = [
     { label: 'User Type', value: '0' }, // Default disabled
     { label: 'user', value: '1' },
@@ -65,6 +69,7 @@ function AddUser() {
 
   const onFormSubmit = async (formData) => {
     const { firstName, lastName, email, password, userType } = formData
+    dispatch({ type: 'SET_LOADING' })
     try {
       // Initialize firebase authentication
       const auth = getAuth()
@@ -94,6 +99,8 @@ function AddUser() {
       navigate('/')
     } catch (error) {
       console.log('Something went wrong with registration', error)
+    } finally {
+      dispatch({ type: 'CLEAR_LOADING' })
     }
   }
 
