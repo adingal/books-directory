@@ -57,7 +57,7 @@ function Header() {
                 Users
               </NavLink>
             </NavItem>
-            {user && user.displayName && (
+            {user && user.displayName ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle className="d-flex align-items-center" nav>
                   <FaUser />
@@ -67,6 +67,15 @@ function Header() {
                   <DropdownItem onClick={logOutUser}>Logout</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+            ) : (
+              <NavItem>
+                <NavLink
+                  to="/login"
+                  className="nav-link text-uppercase px-md-3"
+                >
+                  Login
+                </NavLink>
+              </NavItem>
             )}
           </Nav>
         </Collapse>

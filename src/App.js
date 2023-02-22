@@ -27,9 +27,9 @@ function App() {
           <Header />
           <Layout>
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Books />} />
               <Route path="/add-user" element={<AddUser />} />
-              <Route path="/books" element={<Books />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/books/edit/:id" element={<EditBook />} />
               <Route path="/users" element={<Users />} />
             </Routes>

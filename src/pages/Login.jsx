@@ -58,7 +58,7 @@ function Login() {
           type: 'LOGIN',
           payload: { ...userCredential.user, userData: docSnap.data() },
         })
-        navigate('/books')
+        navigate('/')
       }
     } catch (error) {
       toast.error('Bad user credentials')
