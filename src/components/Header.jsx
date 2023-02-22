@@ -48,7 +48,7 @@ function Header() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
             <NavItem>
-              <NavLink to="/books" className="nav-link text-uppercase px-md-3">
+              <NavLink to="/" className="nav-link text-uppercase px-md-3">
                 Books
               </NavLink>
             </NavItem>
