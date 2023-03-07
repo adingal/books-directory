@@ -125,9 +125,7 @@ function Books() {
                 <th scope="row">{book.isbn}</th>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
-                <td>
-                  {toDateTime(book.datePublished.seconds).toLocaleDateString()}
-                </td>
+                <td>{book.datePublished}</td>
                 <td>
                   {toDateTime(book.dateUpdated.seconds).toLocaleDateString()}
                 </td>
