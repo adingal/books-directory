@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 //Pages
 import Books from './pages/Books'
 import EditBook from './pages/EditBook'
+import AddBook from './pages/AddBook'
 import Users from './pages/Users'
 import Login from './pages/Login'
 import AddUser from './pages/AddUser'
@@ -28,10 +29,11 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<Books />} />
-              <Route path="/add-user" element={<AddUser />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/books/edit/:id" element={<EditBook />} />
+              <Route path="/books/add-book" element={<AddBook />} />
+              <Route path="/users/add-user" element={<AddUser />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </Layout>
         </Router>
