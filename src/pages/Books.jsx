@@ -3,12 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Table } from 'reactstrap'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import DeleteModal from '../components/DeleteModal'
 
 // Context
 import UserContext from '../context/UserContext'
 
 // Firebase
-import { collection, getDocs, query, limit, orderBy } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  limit,
+  orderBy,
+} from 'firebase/firestore'
 import { db } from '../firebase.config'
 
 const StyledButton = styled(Button)`
@@ -24,45 +33,72 @@ function toDateTime(secs) {
 
 function Books() {
   const { user, isLoading, dispatch } = useContext(UserContext)
-  const [books, setBooks] = useState(null)
   const navigate = useNavigate()
+  const [books, setBooks] = useState(null)
+  const [deleteBook, setDeleteBook] = useState(false)
+  const [modalState, setModalState] = useState(false)
+  const [currentBook, setCurrentBook] = useState(null)
 
+  // Fetch books on initial render
   useEffect(() => {
-    const fetchListings = async () => {
-      dispatch({ type: 'SET_LOADING' })
-      try {
-        // Get collection reference
-        const listingsRef = collection(db, 'books')
-
-        // Create query
-        const q = query(listingsRef, orderBy('dateAdded', 'desc'), limit(10))
-
-        // Execute query
-        const querySnap = await getDocs(q)
-
-        let booksDb = []
-
-        querySnap.forEach((doc) => {
-          return booksDb.push({
-            id: doc.id,
-            ...doc.data(),
-          })
-        })
-
-        setBooks(booksDb)
-      } catch (error) {
-        toast.error('Could not fetch listings')
-      } finally {
-        dispatch({ type: 'CLEAR_LOADING' })
-      }
-    }
     fetchListings()
   }, [])
 
+  // Re-render books state after fetching
   useEffect(() => {}, [books])
 
-  const onButtonClick = (e) => {
-    console.log(e)
+  useEffect(() => {
+    // Delete book
+    if (currentBook !== null && deleteBook) {
+      const deleteBookOnDB = async (bookId) => {
+        dispatch({ type: 'SET_LOADING' })
+        try {
+          const docRef = doc(db, 'books', bookId)
+          await deleteDoc(docRef)
+          fetchListings()
+        } catch (error) {
+          toast.error('Could not delete book')
+        } finally {
+          dispatch({ type: 'CLEAR_LOADING' })
+          setDeleteBook(false)
+        }
+      }
+      deleteBookOnDB(currentBook.id)
+    }
+  }, [currentBook, deleteBook])
+
+  const fetchListings = async () => {
+    dispatch({ type: 'SET_LOADING' })
+    try {
+      // Get collection reference
+      const listingsRef = collection(db, 'books')
+
+      // Create query
+      const q = query(listingsRef, orderBy('dateAdded', 'desc'), limit(10))
+
+      // Execute query
+      const querySnap = await getDocs(q)
+
+      let booksDb = []
+
+      querySnap.forEach((doc) => {
+        return booksDb.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+
+      setBooks(booksDb)
+    } catch (error) {
+      toast.error('Could not fetch books')
+    } finally {
+      dispatch({ type: 'CLEAR_LOADING' })
+    }
+  }
+
+  const onDeleteClick = (book) => {
+    setModalState(true)
+    setCurrentBook(book)
   }
 
   if (isLoading) return null
@@ -105,7 +141,7 @@ function Books() {
                       Edit
                     </StyledButton>
                     <StyledButton
-                      onClick={() => onButtonClick(book.id)}
+                      onClick={() => onDeleteClick(book)}
                       type="button"
                       color="danger"
                     >
@@ -117,6 +153,14 @@ function Books() {
             ))}
           </tbody>
         </Table>
+      )}
+      {modalState !== null && (
+        <DeleteModal
+          currentBook={currentBook}
+          modalState={modalState}
+          setModalState={setModalState}
+          setDeleteBook={setDeleteBook}
+        />
       )}
     </>
   )
