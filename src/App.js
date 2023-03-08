@@ -30,8 +30,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Books />} />
               <Route path="/books/edit/:id" element={<EditBook />} />
-              <Route path="/books/add-book" element={<AddBook />} />
-              <Route path="/users/add-user" element={<AddUser />} />
+              <Route path="/books/add" element={<AddBook />} />
+              <Route path="/users/add" element={<AddUser />} />
               <Route path="/users" element={<Users />} />
               <Route path="/login" element={<Login />} />
             </Routes>
