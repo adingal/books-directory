@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Table } from 'reactstrap'
+import { Button, Table, Row, Col } from 'reactstrap'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import DeleteModal from '../components/DeleteModal'
@@ -108,49 +108,62 @@ function Books() {
       {books === null ? (
         <p>Failed to load books.</p>
       ) : (
-        <Table>
-          <thead className="bg-dark text-light">
-            <tr>
-              <th>ISBN</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Published</th>
-              <th>Last Update</th>
-              {user?.uid && <th>Update</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {books.map((book) => (
-              <tr key={book.id}>
-                <th scope="row">{book.isbn}</th>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.datePublished}</td>
-                <td>
-                  {toDateTime(book.dateUpdated.seconds).toLocaleDateString()}
-                </td>
-                {user?.uid && (
-                  <td className="d-flex">
-                    <StyledButton
-                      onClick={() => navigate(`/books/edit/${book.id}`)}
-                      type="button"
-                      color="primary"
-                    >
-                      Edit
-                    </StyledButton>
-                    <StyledButton
-                      onClick={() => onDeleteClick(book)}
-                      type="button"
-                      color="danger"
-                    >
-                      Delete
-                    </StyledButton>
-                  </td>
-                )}
+        <>
+          <Row className="py-3">
+            <Col xs={12} className="text-end">
+              <StyledButton
+                onClick={() => navigate('/books/add')}
+                color="success"
+                type="button"
+              >
+                Add
+              </StyledButton>
+            </Col>
+          </Row>
+          <Table>
+            <thead className="bg-dark text-light">
+              <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Published</th>
+                <th>Last Update</th>
+                {user?.uid && <th>Update</th>}
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {books.map((book) => (
+                <tr key={book.id}>
+                  <th scope="row">{book.isbn}</th>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.datePublished}</td>
+                  <td>
+                    {toDateTime(book.dateUpdated.seconds).toLocaleDateString()}
+                  </td>
+                  {user?.uid && (
+                    <td className="d-flex">
+                      <StyledButton
+                        onClick={() => navigate(`/books/edit/${book.id}`)}
+                        type="button"
+                        color="primary"
+                      >
+                        Edit
+                      </StyledButton>
+                      <StyledButton
+                        onClick={() => onDeleteClick(book)}
+                        type="button"
+                        color="danger"
+                      >
+                        Delete
+                      </StyledButton>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
       )}
       {modalState !== null && (
         <DeleteModal
