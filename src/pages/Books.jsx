@@ -109,17 +109,19 @@ function Books() {
         <p>Failed to load books.</p>
       ) : (
         <>
-          <Row className="py-3">
-            <Col xs={12} className="text-end">
-              <StyledButton
-                onClick={() => navigate('/books/add')}
-                color="success"
-                type="button"
-              >
-                Add
-              </StyledButton>
-            </Col>
-          </Row>
+          {user?.uid && (
+            <Row className="py-3">
+              <Col xs={12} className="text-end">
+                <StyledButton
+                  onClick={() => navigate('/books/add')}
+                  color="success"
+                  type="button"
+                >
+                  Add
+                </StyledButton>
+              </Col>
+            </Row>
+          )}
           <Table>
             <thead className="bg-dark text-light">
               <tr>
