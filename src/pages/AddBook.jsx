@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import { Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import StyledErrorLabel from '../components/StyledErrorLabel'
 
 // Context
 import UserContext from '../context/UserContext'
@@ -12,15 +12,6 @@ import UserContext from '../context/UserContext'
 // Firebase
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
-
-const StyledErrorLabel = styled.span`
-  display: block;
-  position: absolute;
-  bottom: -15px;
-  left: 0;
-  font-size: 0.75em;
-  color: #dc3545;
-`
 
 function AddBook() {
   const { user, dispatch } = useContext(UserContext)
