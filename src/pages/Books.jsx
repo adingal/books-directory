@@ -130,6 +130,7 @@ function Books() {
                 <th>Author</th>
                 <th>Published</th>
                 <th>Last Update</th>
+                <th>Date Added</th>
                 {user?.uid && <th>Update</th>}
               </tr>
             </thead>
@@ -140,6 +141,9 @@ function Books() {
                   <td>{book.title}</td>
                   <td>{book.author}</td>
                   <td>{book.datePublished}</td>
+                  <td>
+                    {toDateTime(book.dateAdded.seconds).toLocaleDateString()}
+                  </td>
                   <td>
                     {toDateTime(book.dateUpdated.seconds).toLocaleDateString()}
                   </td>
