@@ -117,7 +117,7 @@ function Books() {
                   color="success"
                   type="button"
                 >
-                  Add
+                  Add Book
                 </StyledButton>
               </Col>
             </Row>
@@ -156,13 +156,15 @@ function Books() {
                       >
                         Edit
                       </StyledButton>
-                      <StyledButton
-                        onClick={() => onDeleteClick(book)}
-                        type="button"
-                        color="danger"
-                      >
-                        Delete
-                      </StyledButton>
+                      {user?.userData?.userType === 'admin' && (
+                        <StyledButton
+                          onClick={() => onDeleteClick(book)}
+                          type="button"
+                          color="danger"
+                        >
+                          Delete
+                        </StyledButton>
+                      )}
                     </td>
                   )}
                 </tr>
