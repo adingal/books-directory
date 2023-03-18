@@ -129,8 +129,8 @@ function Books() {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Published</th>
-                <th>Last Update</th>
                 <th>Date Added</th>
+                <th>Last Update</th>
                 {user?.uid && <th>Update</th>}
               </tr>
             </thead>
