@@ -88,7 +88,7 @@ function AddUser() {
       // Add new data into a collection - if collection(users) does not exist, it will be created
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
-      navigate('/')
+      navigate('/users')
     } catch (error) {
       toast.error('Something went wrong with registration')
     } finally {
